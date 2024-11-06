@@ -1,0 +1,42 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Configuración</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item>
+      <ion-label>Color de la Aplicación</ion-label>
+      <ion-select [(ngModel)]="selectedColor" (ionChange)="changeColor()">
+        <ion-select-option *ngFor="let color of availableColors" [value]="color.value">
+          {{ color.name }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Modo Oscuro</ion-label>
+      <ion-toggle [(ngModel)]="isDarkMode" (ionChange)="toggleDarkMode()"></ion-toggle>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Notificaciones</ion-label>
+      <ion-toggle [(ngModel)]="notificationsEnabled" (ionChange)="toggleNotifications()"></ion-toggle>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Frecuencia de Respaldo</ion-label>
+      <ion-select [(ngModel)]="backupFrequency" (ionChange)="changeBackupFrequency()">
+        <ion-select-option value="daily">Diario</ion-select-option>
+        <ion-select-option value="weekly">Semanal</ion-select-option>
+        <ion-select-option value="monthly">Mensual</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="block" (click)="exportData()">Exportar Datos</ion-button>
+</ion-content>
