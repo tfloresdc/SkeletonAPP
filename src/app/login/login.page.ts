@@ -20,17 +20,18 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
-  onSubmit() {
+  async onSubmit() {
     if (this.validateInput()) {
       this.navCtrl.navigateForward('/home', {
-        state: { username: this.username }
+        state: {
+          username: this.username
+        }
       });
     } else {
-      this.showAlert('Error', 'Datos de entrada no válidos');
+      this.showAlert('Ocurrió un error', 'El usuario y/o contraseña son incorrectos');
     }
   }
 
-  
   validateInput(): boolean {
     const usernameValidate = /^[a-zA-Z0-9]{3,8}$/;
     const passwordValidate = /^\d{4}$/;
@@ -38,8 +39,8 @@ export class LoginPage implements OnInit {
   }
 
   fillTestUser() {
-    this.username = this.testUser.username;
-    this.password = this.testUser.password
+    this.username = 'test321'
+    this.password = '1244'
   }
 
   async showAlert(header: string, message: string) {

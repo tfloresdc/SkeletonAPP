@@ -1,61 +1,62 @@
 
 ion-content {
+    --background: linear-gradient(145deg, #B6BBC4, #151720);
     display: flex;
     justify-content: center;
     align-items: center;
-    --background: linear-gradient(135deg, #B6BBC4, #151720);
 }
 
 .login-card {
-    background: #F0ECE5;
-    border-radius: 20px;
-    padding: 15px;
+    background-color: #F0ECE5;
+    border-radius: 15px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     margin: 13px;
-    width: 90%;
     max-width: 400px;
-    animation: slideIn 0.5s ease;
+    padding: 15px;
+    width: 90%;
 
     ion-card-header {
-        background: #B6BBC4;
+        text-align: center;
+        background-color: #B6BBC4;
         border-radius: 15px;
         padding: 15px;
-        text-align: center;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
     }
 
     ion-card-title {
-        color: #fff;
-        font-size: 1.6em;
+        color: #F0ECE5;
+        font-size: 1.6rem;
         font-weight: bold;
     }
 
     ion-card-subtitle {
-        color: #000;
-        font-size: 17px;
+        color: black;
+        font-size: 1.1rem;
     }
 
     ion-card-content {
-        padding: 15px;
+        padding: 5px;
     }
 
     ion-input {
-        --border-radius: 8px;
-        --padding-start: 15px;
+        --border-radius: 10px;
     }
 
     .custom-buttons {
         display: flex;
         justify-content: space-between;
-        margin-top: 20px;
+        margin-top: 15px;
 
         ion-button {
-            --border-radius: 8px;
-            --padding-start: 15px;
             --background: #161A30;
-            font-size: 1em;
-            font-weight: bold;
-            width: 48%;
+            --border-radius: 8px;
+            --color: #F0ECE5;
+            --padding-start: 20px;
+            --padding-end: 20px;
+            --padding-top: 10px;
+            --padding-bottom: 10px;
+            --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            width: 45%;
         }
     }
 
@@ -63,21 +64,10 @@ ion-content {
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-top: 17px;
+        margin-top: 20px;
 
         ion-button {
             font-size: 0.9em;
         }
-    }
-}
-
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
     }
 }

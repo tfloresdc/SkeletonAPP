@@ -13,7 +13,7 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
   },
   {
     path: 'wallet',
@@ -26,6 +26,29 @@ const routes: Routes = [
   {
     path: 'configuracion',
     loadChildren: () => import('./configuracion/configuracion.module').then( m => m.ConfiguracionPageModule)
+  },
+  {
+    path: 'datos',
+    loadChildren: () => import('./datos/datos.module').then( m => m.DatosPageModule)
+  },
+  {
+    path: 'indicadores',
+    loadChildren: () => import('./indicadores/indicadores.module').then( m => m.IndicadoresPageModule)
+  },
+  {
+    path: 'not-found',
+    loadChildren: () => import('./not-found/not-found.module').then( m => m.NotFoundPageModule)
+  },
+  {
+    path: 'register',
+    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
+  },
+  
+
+
+  {
+    path: '**',
+    loadChildren: () => import('./not-found/not-found.module').then( m => m.NotFoundPageModule) 
   },
 ];
 

@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DateInSpanishPipe } from './pipes/date-in-spanish.pipe';
 
 @NgModule({
-  declarations: [DateInSpanishPipe],
+  declarations: [],
   imports: [CommonModule],
-  exports: [DateInSpanishPipe]
+  exports: []
 })
 export class SharedModule { }

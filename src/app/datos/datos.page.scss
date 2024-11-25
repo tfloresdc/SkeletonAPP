@@ -1,0 +1,35 @@
+ion-content { 
+    --padding-top: 16px;
+    --padding-bottom: 16px;
+}
+
+.title-form {
+    margin-top: 24px;
+    margin-bottom: 16px;
+}
+
+.container-forms {
+    background-color: #F4F5F8;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 25px;
+}
+
+ion-card {
+    margin-top: 24px;
+}
+
+ion-segment {
+    margin-bottom: 16px;
+}
+
+form {
+    ion-item {
+        --padding-start: 0;
+        --inner-padding-end: 0;
+    }
+
+    ion-button[type=submit] {
+        margin-top: 16px;
+    }
+}

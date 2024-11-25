@@ -18,7 +18,11 @@ export class ConfiguracionPage implements OnInit {
     { name: 'Predeterminado', value: 'default' },
     { name: 'Rojo', value: 'red' },
     { name: 'Verde', value: 'green' },
-    { name: 'Azul', value: 'blue' }
+    { name: 'Azul', value: 'blue' },
+    { name: 'Amarillo', value: 'yellow' },
+    { name: 'Rosado', value: 'pink' },
+    { name: 'Naranja', value: 'orange' },
+    { name: 'Morado', value: 'purple' },
   ];
 
   constructor(private storage: Storage, private platform: Platform) { }
@@ -42,7 +46,7 @@ export class ConfiguracionPage implements OnInit {
   }
 
   async changeColor() {
-    document.body.classList.remove('red', 'green', 'blue');
+    document.body.classList.remove('red', 'green', 'blue', 'yellow', 'pink', 'orange', 'purple');
     if (this.selectedColor !== 'default') {
       document.body.classList.add(this.selectedColor);
     }

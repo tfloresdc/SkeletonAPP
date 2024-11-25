@@ -1,0 +1,167 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Mis datos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-title class="ion-margin-top">Tu información personal</ion-title>
+
+  <form (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-label position="stacked">Nombre:</ion-label>
+      <ion-input [(ngModel)]="userData.nombre" name="nombre" #nombreInput [clearInput]="true"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Apellido:</ion-label>
+      <ion-input [(ngModel)]="userData.apellido" name="apellido" #apellidoInput [clearInput]="true"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Nivel de educación:</ion-label>
+      <ion-select [(ngModel)]="userData.nivelEducacion" name="nivelEducacion">
+        <ion-select-option value="Basica">Básica</ion-select-option>
+        <ion-select-option value="Media">Media</ion-select-option>
+        <ion-select-option value="Superior">Superior</ion-select-option>
+        <ion-select-option value="Doctorado">Doctorado</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Fecha de nacimiento</mat-label>
+      <input matInput [matDatepicker]="picker" [(ngModel)]="userData.fechaNacimiento" name="fechaNacimiento" (click)="picker.open()">
+      <mat-hint>DD/MM/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker>
+        <mat-datepicker-actions>
+          <button mat-raised-button matDatepickerApply>Elegir</button>
+          <button mat-raised-button matDatepickerCancel>Cancelar</button>
+        </mat-datepicker-actions>
+      </mat-datepicker>
+    </mat-form-field>
+
+    <div class="ion-padding-top">
+      <ion-button (click)="limpiar()" color="danger">Limpiar</ion-button>
+      <ion-button type="submit" [disabled]="!userData.nombre || !userData.apellido">Guardar</ion-button>
+    </div>
+  </form>
+
+  <ion-segment [(ngModel)]="selectedSegment" (ionChange)="onSegmentChange($event)" class="ion-margin-top">
+    <ion-segment-button value=experiencia>
+      <ion-icon name="briefcase"></ion-icon>
+    </ion-segment-button>
+    <ion-segment-button value="certificaciones">
+      <ion-icon name="ribbon"></ion-icon>
+    </ion-segment-button>
+  </ion-segment>
+
+  <ng-container *ngIf="selectedSegment === 'experiencia'">
+    <div class="title-form">
+      <ion-title class="ion-margin-bottom ion-margin-top">Experiencia laboral</ion-title>
+    </div>
+
+    <div class="container-forms">
+      <form (ngSubmit)="guardarExperiencia()">
+        <ion-item>
+          <ion-label position="stacked">Empresa:</ion-label>
+          <ion-input [(ngModel)]="experiencia.empresa" name="empresa" placeholder="Ingresa el nombre de tu empresa"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Año de inicio:</ion-label>
+          <ion-datetime display-formar="YYYY" presentation="year" [(ngModel)]="experiencia.anoInicio" name="anoInicio"></ion-datetime>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>¿Actualmente trabaja aquí?</ion-label>
+          <ion-toggle [(ngModel)]="experiencia.trabajaActualmente" name="trabajaActualmente"></ion-toggle>
+        </ion-item>
+
+        <ion-item *ngIf="!experiencia.trabajaActualmente">
+          <ion-label position="stacked">Año de término:</ion-label>
+          <ion-datetime display-formar="YYYY" presentation="year" [(ngModel)]="experiencia.anoTermino" name="anoTermino"></ion-datetime>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Cargo:</ion-label>
+          <ion-input [(ngModel)]="experiencia.cargo" name="cargo" placeholder="Ingresa tu cargo en la empresa"></ion-input>
+        </ion-item>
+        <ion-button type="submit" expand="block">Guardar experiencia</ion-button>
+      </form>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="selectedSegment === 'certificaciones'">
+    <div class="title-form">
+      <ion-title class="ion-margin-bottom ion-margin-top">Certificaciones</ion-title>
+    </div>
+
+    <div class="container-forms">
+      <form (ngSubmit)="guardarCertificacion()">
+        <ion-item>
+          <ion-label position="stacked">Nombre del certificado</ion-label>
+          <ion-input [(ngModel)]="certificacion.nombre" name="nombreCertificado" placeholder="Ingresa el nombre de tu certificado"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Fecha de obtención</ion-label>
+          <ion-datetime display-format="DD/MM/YYYY" [(ngModel)]="certificacion.fechaObtencion" name="fechaObtencion"></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">¿Tiene vencimiento?</ion-label>
+          <ion-toggle [(ngModel)]="certificacion.tieneVencimiento" name="tieneVencimiento"></ion-toggle>
+        </ion-item>
+        <ion-item *ngIf="certificacion.tieneVencimiento">
+          <ion-label position="stacked">Fecha de vencimiento</ion-label>
+          <ion-datetime display-format="DD/MM/YYYY" [(ngModel)]="certificacion.fechaVencimiento" name="fechaVencimiento"></ion-datetime>
+        </ion-item>
+        <ion-button type="submit" expand="block">Guardar Certificación</ion-button>
+      </form>
+    </div>
+
+  </ng-container>
+  
+
+  <ion-card *ngIf="userData">
+    <ion-card-header>
+      <ion-card-subtitle>Tu información personal</ion-card-subtitle>
+      <ion-card-title>{{ userData.nombre }} {{ userData.apellido }}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <p><strong>Nombre:</strong>{{ userData.nombre }}</p>
+      <p><strong>Apellido:</strong>{{ userData.apellido }}</p>
+      <p><strong>Nivel de educación:</strong>{{ userData.nivelEducacion }}</p>
+      <p><strong>Fecha de nacimiento:</strong>{{ userData.fechaNacimiento | date: 'dd/MM/yyyy' }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="experiencia">
+    <ion-card-header>
+      <ion-card-title>Experiencia laboral</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p><strong>Empresa:</strong>{{ experiencia.empresa }}</p>
+      <p><strong>Año de inicio:</strong>{{ experiencia.anoInicio}}</p>
+      <p><strong>¿Actualmente trabaja aquí?</strong>{{ experiencia.trabajaActualmente ? 'Sí' : 'No' }}</p>
+      <p *ngIf="!experiencia.trabajaActualmente"><strong>Año de término:</strong>{{ experiencia.anoTermino }}</p>
+      <p><strong>Cargo:</strong>{{ experiencia.cargo }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="certificacion">
+    <ion-card-header>
+      <ion-card-title>Certificaciones</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p><strong>Nombre del certificado:</strong>{{ certificacion.nombre }}</p>
+      <p><strong>Fecha de obtención:</strong>{{ certificacion.fechaObtencion }}</p>
+      <p><strong>Tiene vencimiento:</strong>{{ certificacion.tieneVencimiento ? 'Sí': 'No' }}</p>
+      <p *ngIf="certificacion.tieneVencimiento"><strong>Fecha de vencimiento:</strong>{{ certificacion.fechaVencimiento }}</p>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

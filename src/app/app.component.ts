@@ -1,18 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   constructor(
     private platform: Platform,
-    private storage: Storage
+    private storage: Storage,
+    private router: Router
   ) {
     this.initializeApp();
+  }
+
+  async ngOnInit() {
+
   }
 
   async initializeApp() {
