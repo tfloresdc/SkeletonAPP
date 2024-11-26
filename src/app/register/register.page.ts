@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, NavController } from '@ionic/angular';
 
+import { DBTaskService } from '../services/dbtask.service';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
@@ -18,7 +20,7 @@ export class RegisterPage implements OnInit {
     fechaNacimiento: '',
   };
 
-  constructor(private navCtrl: NavController, private alertController: AlertController) { }
+  constructor(private navCtrl: NavController, private alertController: AlertController, private dbTask: DBTaskService) { }
 
   ngOnInit() {
   }
@@ -26,9 +28,9 @@ export class RegisterPage implements OnInit {
 
   async onSubmit() {
     if(this.validateInput()) {
-      localStorage.setItem('userData', JSON.stringify(this.userData));
+      await this.dbTask.registerSession(this.userData.username, Number(this.userData.password));
 
-      this.showAlert('Registro exitoso', 'Tu cuenta ha sido creada exitosamente');
+      await this.showAlert('Registro exitoso', 'Tu cuenta ha sido creada exitosamente');
       this.navCtrl.navigateForward('/login');
     } else {
       this.showAlert('Error en el registro', 'Por favor, verifica los datos ingresados');

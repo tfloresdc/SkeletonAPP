@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, NavController } from '@ionic/angular';
+import { DBTaskService } from '../services/dbtask.service';
+
 
 @Component({
   selector: 'app-login',
@@ -15,20 +17,26 @@ export class LoginPage implements OnInit {
     password: '1244'
   }
 
-  constructor(private navCtrl: NavController, private alertController: AlertController) { }
+  constructor(private navCtrl: NavController, private alertController: AlertController, private dbTask: DBTaskService) { }
 
   ngOnInit() {
   }
 
   async onSubmit() {
     if (this.validateInput()) {
-      this.navCtrl.navigateForward('/home', {
-        state: {
-          username: this.username
-        }
-      });
+      const isValid = await this.dbTask.validateUser(this.username, Number(this.password));
+      if (isValid) {
+        await this.dbTask.saveSessionToStorage(this.username);
+        this.navCtrl.navigateForward('/home', {
+          state: {
+            username: this.username
+          }
+        });
+      } else {
+        this.showAlert('Ocurrió un error', 'Usuario o contraseña incorrectos');
+      }
     } else {
-      this.showAlert('Ocurrió un error', 'El usuario y/o contraseña son incorrectos');
+      this.showAlert('Ocurrió un error', 'Usuario o contraseña incorrectos');
     }
   }
 
